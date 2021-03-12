@@ -1,0 +1,22 @@
+{
+    "tags": ["WordPress", "Twig", "PHP"],
+    "categories": ["Twig"],
+    "snippets": [
+        {
+            "title": "FAQs content with twig",
+            "description": "Here goes the description",
+            "tags": ["WordPress", "Twig", "PHP"],
+            "category": "Twig",
+            "files": [
+                {
+                    "name": "tp-content_faqs.php",
+                    "code": "<php\n\n    global $get_field;\n\n    if(!isset($get_field) || empty($get_field)) {\n        $get_field = 'get_field';\n    }\n\n    $context['title'] = $get_field('content_faqs_title');\n    $context['description'] = $get_field('content_faqs_description');\n    $context['faqs'] = $get_field('content_faqs');\n\n    if(!empty($context['faqs'])) {\n        Timber::render('tp-content_faqs.twig', $context);\n    }"
+                },
+                {
+                    "name": "tp-content-faqs.twig",
+                    "code": "<!-- CONTENT FAQS -->\n<section class=\"section-default section-professional\" data-aos=\"fade-up\">\n    <div class=\"container\">\n        <div class=\"row justify-content-center justify-content-lg-between\">\n            <div class=\"col-10 col-md-9 col-lg-5 mb-4\">\n                {% if title is not empty %}\n                    <h2 class=\"h1\">{{ title }}</h2>\n                {% endif %}\n                {% if description is not empty %}\n                    <h3 class=\"sh1\">{{ description }}</h3>\n                {% endif %}\n            </div>\n            <div class=\"col-10 col-md-9 col-lg-6\">\n                <div class=\"accordion\" id=\"faq_accordion\">\n                    {% set iAux = 0 %}\n                    {% for faq in faqs %}\n                        {% set iAux = iAux + 1 %}\n                        <div id=\"heading_{{ iAux }}\">\n                            <button class=\"{{ (iAux != 1) ? 'collapsed' : '' }}\" type=\"button\" data-toggle=\"collapse\" data-target=\"#faq_{{ iAux }}\" aria-expanded=\"true\" aria-controls=\"faq_{{ niAux }}\">\n                                <h4 class=\"collapse-title h4\">{{ faq.question }}</h4>\n                            </button>\n                        </div>\n\n                        <div id=\"faq_{{ iAux }}\" class=\"collapse {{ (iAux == 1) ? 'show' : '' }}\" aria-labelledby=\"heading_{{ iAux }}\" data-parent=\"#faq_accordion\">\n                            <div class=\"collapse-body\">\n                                <p>{{ faq.answer }}</p>\n                            </div>\n                        </div>\n                        <hr class=\"hr-dashed\">\n                    {% endfor %}\n                </div>\n            </div>\n        </div>\n    </div>\n</section>"
+                }
+            ]
+        }
+    ]
+}
